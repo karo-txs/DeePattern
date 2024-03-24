@@ -1,4 +1,4 @@
-from core import TransitionalObject, Handler, RequestObject, Strategy
+from patterns import TransitionalObject, Handler, RequestObject, Strategy
 from __future__ import annotations
 from dataclasses import dataclass
 from abc import abstractmethod

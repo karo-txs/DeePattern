@@ -1,5 +1,5 @@
 from __future__ import annotations
-from core import Strategy
+from patterns import Strategy
 
 
 class Context():

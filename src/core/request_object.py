@@ -1,4 +1,4 @@
-from core import TransitionalObject
+from patterns import TransitionalObject
 from dataclasses import dataclass
 
 

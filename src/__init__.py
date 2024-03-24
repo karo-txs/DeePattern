@@ -1,4 +1,4 @@
-from core import *
+from patterns import *
 from infra import *
 
 __version__ = '0.1.0'
