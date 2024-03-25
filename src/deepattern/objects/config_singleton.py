@@ -1,13 +1,12 @@
-from dataclasses import dataclass
+from __future__ import annotations
+from deepattern.patterns.singleton.singleton_meta import SingletonMeta
 import toml
 
 
-@dataclass
-class ProjectConfig:
-    toml_path: str = None
-
-    def __post_init__(self):
-        config_data = toml.load(self.toml_path)
+class ConfigSingleton(metaclass=SingletonMeta):
+    
+    def load_config(self, filepath: str = None) -> ConfigSingleton:
+        config_data = toml.load(filepath)
         current_section = None
 
         for section, entries in config_data.items():
@@ -23,8 +22,17 @@ class ProjectConfig:
                 for key, value in entries.items():
                     attr_name = f"{section}_{key}"
                     setattr(self, attr_name, value)
+        return self
+    
+    def create_attr(self, attr_name, value) -> ConfigSingleton:
+        setattr(self, attr_name, value)
+        return self
 
     def to_dict(self):
         return {
             name: getattr(self, name) for name in dir(self) if not name.startswith("_")
         }
+    
+    def __str__(self):
+        attrs = vars(self)
+        return ', '.join("%s: %s" % item for item in attrs.items())

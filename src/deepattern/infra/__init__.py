@@ -1,0 +1,1 @@
+from deepattern.infra.register_package import *

@@ -1,6 +1,6 @@
-from patterns import TransitionalObject, RequestObject
-from abc import ABC, abstractmethod
 from __future__ import annotations
+from deepattern.objects import TransitionalObject
+from abc import ABC, abstractmethod
 from typing import Optional
 
 
@@ -15,5 +15,5 @@ class Handler(ABC):
         pass
 
     @abstractmethod
-    def handle(self, request: Optional[RequestObject]) -> Optional[TransitionalObject]:
+    def handle(self, request: Optional[TransitionalObject]) -> Optional[TransitionalObject]:
         pass

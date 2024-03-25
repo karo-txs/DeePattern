@@ -1,0 +1,2 @@
+from deepattern.objects.transitional_object import TransitionalObject
+from deepattern.objects.config_singleton import ConfigSingleton

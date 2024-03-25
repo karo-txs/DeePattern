@@ -1,5 +1,6 @@
+from deepattern.objects import TransitionalObject
 from abc import ABC, abstractmethod
-from typing import List
+from typing import Optional
 
 
 class Strategy(ABC):
@@ -12,5 +13,5 @@ class Strategy(ABC):
     """
 
     @abstractmethod
-    def run_strategy(self, data: List):
+    def run_strategy(self, data: Optional[TransitionalObject]) -> Optional[TransitionalObject]:
         pass
