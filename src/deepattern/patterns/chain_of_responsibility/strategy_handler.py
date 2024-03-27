@@ -12,8 +12,8 @@ class StrategyHandler(GenericHandler):
     class.
     """
     context: Context = None
-    request: TransitionalObject = TransitionalObject()
-    chain_execution: List = field(default_factory=[])
+    request: TransitionalObject = None
+    chain_execution: list = field(default_factory=list) 
     
     @classmethod
     def builder(cls, strategy: Strategy) -> StrategyHandler:
@@ -21,10 +21,18 @@ class StrategyHandler(GenericHandler):
     
     @classmethod
     def builder(cls, strategies: List[Strategy]) -> StrategyHandler:
-        handler = StrategyHandler(context=Context(strategy=strategies[0]))
+        first_handler = StrategyHandler(context=Context(strategy=strategies[0]))
+        next_handler = None
+        is_first = True
         for strategy in strategies[1:]:
-            handler = handler.set_next(StrategyHandler(context=Context(strategy=strategy)))
-        return handler
+            if is_first:
+                is_first = not is_first
+                next_handler = StrategyHandler(context=Context(strategy=strategy))
+                handler = first_handler.set_next(next_handler)
+            else:
+                next_handler = StrategyHandler(context=Context(strategy=strategy))
+                handler = handler.set_next(next_handler)
+        return first_handler
 
     def set_next(self, handler: Handler) -> Handler:
         self._next_handler = handler
@@ -37,11 +45,14 @@ class StrategyHandler(GenericHandler):
             raise "Chain Broken. Verify Strategy Dependences"
 
         if not self.executed:
+            print(self.context.strategy)
             self.request = self.action(self.request)
             self.executed = True
             return self
+        
         elif self._next_handler:
-            return self._next_handler.handle(self.request)
+            self._next_handler.request = self.request
+            return self._next_handler.handle()
 
         return None
     

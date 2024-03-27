@@ -1,8 +1,8 @@
 from __future__ import annotations
 from deepattern.objects import TransitionalObject
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from typing import List, Optional
+from dataclasses import dataclass, field
+from typing import Optional
 
 
 @dataclass
@@ -14,7 +14,7 @@ class Strategy(ABC):
     The Context uses this interface to call the algorithm defined by Concrete
     Strategies.
     """
-    depends_on: List = []
+    depends_on: list = field(default_factory=list) 
 
     def verify_dependences(self, last_strategy: Strategy):
         return not self.depends_on or (self.depends_on and last_strategy.__class__ in [dep.__class__ for dep in self.depends_on])
@@ -22,4 +22,7 @@ class Strategy(ABC):
     @abstractmethod
     def run_strategy(self, data: Optional[TransitionalObject]) -> Optional[TransitionalObject]:
         pass
+
+    def __str__(self):
+        return str(self.__class__)
     

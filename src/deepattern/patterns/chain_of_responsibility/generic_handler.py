@@ -13,7 +13,7 @@ class GenericHandler(Handler):
     """
     name: str = "none"
     _next_handler: Handler = None
-    executed: bool = True
+    executed: bool = False
 
     def set_next(self, handler: Handler) -> Handler:
         self._next_handler = handler
