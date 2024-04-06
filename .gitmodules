@@ -1,0 +1,3 @@
+[submodule "template/DeePatternProject"]
+	path = template/DeePatternProject
+	url = https://github.com/karo-txs/DeePatternProject.git
