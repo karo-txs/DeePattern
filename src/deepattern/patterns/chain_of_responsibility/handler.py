@@ -1,7 +1,5 @@
 from __future__ import annotations
-from deepattern.objects import TransitionalObject
 from abc import ABC, abstractmethod
-from typing import Optional
 
 
 class Handler(ABC):
@@ -15,5 +13,5 @@ class Handler(ABC):
         pass
 
     @abstractmethod
-    def handle(self, request: Optional[TransitionalObject]) -> Optional[TransitionalObject]:
+    def handle(self) -> None:
         pass

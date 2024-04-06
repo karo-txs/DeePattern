@@ -1,9 +1,10 @@
 from __future__ import annotations
+from deepattern.patterns.singleton.singleton_meta import SingletonMeta
 from dataclasses import dataclass
 
 
 @dataclass
-class TransitionalObject(object):
+class TransitionalObject(metaclass=SingletonMeta):
     name: str = "none"
     data: any = None
 

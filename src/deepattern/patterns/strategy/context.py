@@ -1,7 +1,5 @@
 from __future__ import annotations
-from deepattern.objects import TransitionalObject
 from deepattern.patterns import Strategy
-from typing import Optional
 
 
 class Context():
@@ -35,10 +33,10 @@ class Context():
 
         self._strategy = strategy
 
-    def run_strategy(self, data: Optional[TransitionalObject] = None) -> Optional[TransitionalObject]:
+    def run_strategy(self) -> None:
         """
         The Context delegates some work to the Strategy object instead of
         implementing multiple versions of the algorithm on its own.
         """
 
-        return self._strategy.run_strategy(data)
+        return self._strategy.load_conf_and_run_strategy()

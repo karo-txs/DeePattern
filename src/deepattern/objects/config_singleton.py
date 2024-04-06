@@ -1,5 +1,6 @@
 from __future__ import annotations
 from deepattern.patterns.singleton.singleton_meta import SingletonMeta
+from deepattern.objects.logger import LoggerSingleton
 import toml
 
 

@@ -1,8 +1,6 @@
-from deepattern.objects import TransitionalObject
 from deepattern.patterns import Handler
 from dataclasses import dataclass
 from abc import abstractmethod
-from typing import Optional
 
 
 @dataclass
@@ -20,9 +18,9 @@ class GenericHandler(Handler):
         return handler
 
     @abstractmethod
-    def handle(self, request: Optional[TransitionalObject]) -> Optional[TransitionalObject]:
+    def handle(self) -> None:
         if not self.executed:
-            self.action(request.data)
+            self.action()
             self.executed = True
             return self
         elif self._next_handler:
@@ -31,5 +29,5 @@ class GenericHandler(Handler):
         return None
     
     @abstractmethod
-    def action(self, data: Optional[TransitionalObject]) -> None:
+    def action(self) -> None:
         pass

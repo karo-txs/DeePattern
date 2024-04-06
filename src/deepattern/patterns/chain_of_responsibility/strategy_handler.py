@@ -1,8 +1,7 @@
 from __future__ import annotations
 from deepattern.patterns import GenericHandler, Handler, Context, Strategy
-from deepattern.objects import TransitionalObject
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import List
 
 
 @dataclass
@@ -12,7 +11,6 @@ class StrategyHandler(GenericHandler):
     class.
     """
     context: Context = None
-    request: TransitionalObject = None
     chain_execution: list = field(default_factory=list) 
     
     @classmethod
@@ -45,16 +43,14 @@ class StrategyHandler(GenericHandler):
             raise "Chain Broken. Verify Strategy Dependences"
 
         if not self.executed:
-            print(self.context.strategy)
-            self.request = self.action(self.request)
+            self.action()
             self.executed = True
             return self
         
         elif self._next_handler:
-            self._next_handler.request = self.request
             return self._next_handler.handle()
 
         return None
     
-    def action(self, data: Optional[TransitionalObject] = None) -> Optional[TransitionalObject]:
-        return self.context.run_strategy(data)
+    def action(self) -> None:
+        self.context.run_strategy()
