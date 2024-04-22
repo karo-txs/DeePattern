@@ -31,8 +31,11 @@ class Director:
     building steps.
     """
 
-    def build_basic_model(self) -> None:
+    def build_layer_based_model(self) -> None:
         self.builder.include_input()
         self.builder.include_hidden()
         self.builder.include_output()
+        self.builder.compile()
+        
+    def build_model(self) -> None:
         self.builder.compile()
