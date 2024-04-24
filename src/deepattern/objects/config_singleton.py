@@ -17,12 +17,18 @@ class ConfigSingleton(metaclass=SingletonMeta):
 
             if current_section:
                 for key, value in entries.items():
-                    attr_name = f"{current_section}_{section}_{key}"
-                    setattr(self, attr_name, value)
+                    if value.endswith(".toml"):
+                        load_config(value)
+                    else:
+                        attr_name = f"{current_section}_{section}_{key}"
+                        setattr(self, attr_name, value)
             else:
                 for key, value in entries.items():
-                    attr_name = f"{section}_{key}"
-                    setattr(self, attr_name, value)
+                    if value.endswith(".toml"):
+                        load_config(value)
+                    else:
+                        attr_name = f"{section}_{key}"
+                        setattr(self, attr_name, value)
         return self
     
     def create_attr(self, attr_name, value) -> ConfigSingleton:
