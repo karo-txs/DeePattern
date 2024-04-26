@@ -1,19 +1,21 @@
 from __future__ import annotations
+from deepattern.objects.config_singleton import ConfigSingleton
 from deepattern.patterns import Strategy
 
 
-class Context():
+class Context:
     """
     The Context defines the interface of interest to clients.
     """
 
-    def __init__(self, strategy: Strategy) -> None:
+    def __init__(self, strategy: Strategy, cfg: ConfigSingleton) -> None:
         """
         Usually, the Context accepts a strategy through the constructor, but
         also provides a setter to change it at runtime.
         """
 
         self._strategy = strategy
+        self.cfg = cfg
 
     @property
     def strategy(self) -> Strategy:
@@ -39,4 +41,4 @@ class Context():
         implementing multiple versions of the algorithm on its own.
         """
 
-        return self._strategy.load_conf_and_run_strategy()
+        return self._strategy.load_conf_and_run_strategy(self.cfg)

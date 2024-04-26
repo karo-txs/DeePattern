@@ -13,22 +13,20 @@ class StrategyHandler(GenericHandler):
     context: Context = None
     chain_execution: list = field(default_factory=list) 
     
-    @classmethod
-    def builder(cls, strategy: Strategy) -> StrategyHandler:
-        return StrategyHandler(context=Context(strategy=strategy))
+    def builder_single(self, strategy: Strategy) -> StrategyHandler:
+        return StrategyHandler(context=Context(strategy=strategy, cfg=self.cfg))
     
-    @classmethod
-    def builder(cls, strategies: List[Strategy]) -> StrategyHandler:
-        first_handler = StrategyHandler(context=Context(strategy=strategies[0]))
+    def builder(self, strategies: List[Strategy]) -> StrategyHandler:
+        first_handler = StrategyHandler(context=Context(strategy=strategies[0], cfg=self.cfg))
         next_handler = None
         is_first = True
         for strategy in strategies[1:]:
             if is_first:
                 is_first = not is_first
-                next_handler = StrategyHandler(context=Context(strategy=strategy))
+                next_handler = StrategyHandler(context=Context(strategy=strategy, cfg=self.cfg))
                 handler = first_handler.set_next(next_handler)
             else:
-                next_handler = StrategyHandler(context=Context(strategy=strategy))
+                next_handler = StrategyHandler(context=Context(strategy=strategy, cfg=self.cfg))
                 handler = handler.set_next(next_handler)
         return first_handler
 

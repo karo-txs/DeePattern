@@ -1,3 +1,4 @@
+from deepattern.objects.config_singleton import ConfigSingleton
 from deepattern.patterns import Handler
 from dataclasses import dataclass
 from abc import abstractmethod
@@ -9,6 +10,7 @@ class GenericHandler(Handler):
     The default chaining behavior can be implemented inside a base handler
     class.
     """
+    cfg: ConfigSingleton = None
     name: str = "none"
     _next_handler: Handler = None
     executed: bool = False

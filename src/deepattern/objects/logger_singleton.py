@@ -13,13 +13,22 @@ class LoggerSingleton(metaclass=SingletonMeta):
         return self
 
     def info(self, text: str):
-        if self.__getattribute__("verbose"):
-            logging.info(text)
+        try:
+            if self.__getattribute__("verbose"):
+                logging.info(text)
+        except:
+            pass
 
     def warning(self, text: str):
-        if self.__getattribute__("verbose"):
-            logging.warning(text)
+        try:
+            if self.__getattribute__("verbose"):
+                logging.warning(text)
+        except:
+            pass
 
     def error(self, text: str):
-        if self.__getattribute__("verbose"):
-            logging.error(text)
+        try:
+            if self.__getattribute__("verbose"):
+                logging.error(text)
+        except:
+            pass

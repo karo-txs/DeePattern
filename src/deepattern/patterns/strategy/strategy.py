@@ -20,8 +20,8 @@ class Strategy(ABC):
     def verify_dependences(self, last_strategy: Strategy):
         return not self.depends_on or (self.depends_on and last_strategy.__class__ in [dep.__class__ for dep in self.depends_on])
 
-    def load_conf_and_run_strategy(self):
-        self.cfg = ConfigSingleton()
+    def load_conf_and_run_strategy(self, cfg: ConfigSingleton):
+        self.cfg = cfg
         self.transitional_object = TransitionalObject() 
         self.logger = LoggerSingleton()
         
