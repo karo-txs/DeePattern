@@ -36,6 +36,11 @@ class ConfigSingleton(object):
     def create_attr(self, attr_name, value) -> ConfigSingleton:
         setattr(self, attr_name, value)
         return self
+
+    def create_attrs_from_dict(self, dict_values) -> ConfigSingleton:
+        for key in dict_values.keys():
+            setattr(self, key, dict_values[key])
+        return self
     
     def __repr__(self, level=0):
         indent = '  ' * level
@@ -49,5 +54,6 @@ class ConfigSingleton(object):
 
     def to_dict(self):
         return {
-            name: getattr(self, name) for name in dir(self) if not name.startswith("_")
+            name: getattr(self, name) for name in dir(self) if not name.startswith("_") \
+                and name not in ["create_attr", "create_attrs_from_dict", "load_config", "to_dict"]
         }
